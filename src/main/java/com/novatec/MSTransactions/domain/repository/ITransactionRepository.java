@@ -7,4 +7,6 @@ public interface ITransactionRepository {
     TransactionDomain save(TransactionDomain transactionDomain);
 
     TransactionDomain findById(Long transactionId);
+
+    TransactionDomain findByIdAndCardId(Long transactionId, Long cardId);
 }

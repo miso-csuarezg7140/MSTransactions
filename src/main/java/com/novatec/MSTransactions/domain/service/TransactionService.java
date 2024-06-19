@@ -36,6 +36,13 @@ public class TransactionService {
 
     private final ObjectMapper objectMapper;
 
+    /**
+     * <p>Method to manage the logic and persistence to a purchase.</p>
+     *
+     * @param purchaseRequest Purchase info to be persisted.
+     * @return Json object with the purchase info.
+     * @throws JsonProcessingException Handle exceptions.
+     */
     public String purchase(PurchaseRequest purchaseRequest) throws JsonProcessingException {
 
         Long cardNumber = Long.parseLong(purchaseRequest.getCardId());
@@ -84,11 +91,11 @@ public class TransactionService {
     }
 
     /**
-     * <p></p>
+     * <p>Method to return the info about a transaction.</p>
      *
-     * @param transactionId
-     * @return
-     * @throws JsonProcessingException
+     * @param transactionId Id transaction to query.
+     * @return Json object with the transaction info.
+     * @throws JsonProcessingException Handle exceptions.
      */
     public String getTransaction(Long transactionId) throws JsonProcessingException {
 
@@ -102,17 +109,18 @@ public class TransactionService {
     }
 
     /**
-     * <p></p>
+     * <p>Method to cancel a transaction.</p>
      *
-     * @param cancelTransactionRequest
-     * @return
-     * @throws JsonProcessingException
+     * @param cancelTransactionRequest Object with info about the transaction to be cancelled.
+     * @return Json object with the transaction info cancelled.
+     * @throws JsonProcessingException Handle exceptions.
      */
     public String cancelTransaction(CancelTransactionRequest cancelTransactionRequest) throws JsonProcessingException {
 
         LocalDateTime today = LocalDateTime.now();
+        Long cardNumber = Long.parseLong(cancelTransactionRequest.getCardId());
         TransactionDomain transactionDomain = transactionRepository
-                .findById(cancelTransactionRequest.getTransactionId());
+                .findByIdAndCardId(cancelTransactionRequest.getTransactionId(), cardNumber);
 
         if (transactionDomain != null) {
             if (TransactionState.VALID.getStatus() == transactionDomain.getStatus()) {
@@ -140,8 +148,8 @@ public class TransactionService {
                         cancelTransactionRequest.getTransactionId() + " is already canceled.");
             }
         } else {
-            throw new TransactionNotFoundException("Transaction with ID " +
-                    cancelTransactionRequest.getTransactionId() + " doesn't exist.");
+            throw new TransactionNotFoundException("Transaction with ID " + cancelTransactionRequest.getTransactionId() +
+                    " doesn't exist or cardId doesn't match with transactionId.");
         }
     }
 }

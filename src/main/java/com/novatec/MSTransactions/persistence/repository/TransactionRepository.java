@@ -28,4 +28,10 @@ public class TransactionRepository implements ITransactionRepository {
         return transactionMapper.toTransactionDomain(crudTransactionRepository.findById(transactionId)
                 .orElse(null));
     }
+
+    @Override
+    public TransactionDomain findByIdAndCardId(Long transactionId, Long cardId) {
+        return transactionMapper.toTransactionDomain(crudTransactionRepository
+                .findByIdAndCardId(transactionId, cardId));
+    }
 }
