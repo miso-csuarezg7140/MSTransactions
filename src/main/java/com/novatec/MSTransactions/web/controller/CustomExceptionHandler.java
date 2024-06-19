@@ -7,6 +7,7 @@ import com.novatec.MSTransactions.domain.utils.exception.InsufficientBalanceExce
 import com.novatec.MSTransactions.domain.utils.exception.TimeToCancelException;
 import com.novatec.MSTransactions.domain.utils.exception.TransactionAlreadyCancelledException;
 import com.novatec.MSTransactions.domain.utils.exception.TransactionNotFoundException;
+import io.swagger.annotations.Api;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.method.annotation.HandlerMethodValidationException;
 
+@Api(value = "Controlador que contiene el manejo de excepciones del microservicio.")
 @ControllerAdvice
 public class CustomExceptionHandler {
 
