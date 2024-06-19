@@ -6,9 +6,9 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
 
 @EnableFeignClients
 @SpringBootApplication
-public class MsTransactionsApplication {
+public class MSTransactionsApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(MsTransactionsApplication.class, args);
+        SpringApplication.run(MSTransactionsApplication.class, args);
     }
 }
