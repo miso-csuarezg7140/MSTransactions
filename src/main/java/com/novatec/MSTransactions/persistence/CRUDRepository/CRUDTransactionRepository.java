@@ -8,5 +8,5 @@ import org.springframework.data.repository.query.Param;
 public interface CRUDTransactionRepository extends CrudRepository<Transaction, Long> {
 
     @Query("SELECT t FROM Transaction t WHERE t.transactionId = :transactionId AND t.cardId = :cardId")
-    Transaction findByIdAndCardId (@Param("transactionId") Long transactionId, @Param("cardId") Long cardId);
+    Transaction findByIdAndCardId(@Param("transactionId") Long transactionId, @Param("cardId") Long cardId);
 }
