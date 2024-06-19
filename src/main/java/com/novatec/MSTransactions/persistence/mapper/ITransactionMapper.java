@@ -11,5 +11,5 @@ public interface ITransactionMapper {
     TransactionDomain toTransactionDomain(Transaction transaction);
 
     @InheritInverseConfiguration
-    Transaction fromTransactionDomain(Transaction transaction);
+    Transaction fromTransactionDomain(TransactionDomain transactionDomain);
 }

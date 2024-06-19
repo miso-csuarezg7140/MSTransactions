@@ -13,7 +13,7 @@ public class TransactionDomain {
 
     private Long transactionId;
     private Long cardId;
-    private Long amount;
+    private Long price;
     private LocalDateTime transactionDate;
     private Boolean status;
 }
