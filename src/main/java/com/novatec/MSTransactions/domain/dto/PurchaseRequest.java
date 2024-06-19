@@ -12,7 +12,7 @@ import lombok.NoArgsConstructor;
 public class PurchaseRequest {
 
     @Pattern(regexp = "^\\d{16}$", message = "No cumple con la longitud requerida para el Id de la tarjeta.")
-    private Long cardId;
+    private String cardId;
 
     @Min(value = 1, message = "El monto mínimo de la transacción es de un dólar.")
     private Long price;

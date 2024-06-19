@@ -6,10 +6,13 @@ import com.novatec.MSTransactions.domain.utils.exception.CardNotFoundException;
 import com.novatec.MSTransactions.domain.utils.exception.InsufficientBalanceException;
 import com.novatec.MSTransactions.domain.utils.exception.TimeToCancelException;
 import com.novatec.MSTransactions.domain.utils.exception.TransactionAlreadyCancelledException;
+import com.novatec.MSTransactions.domain.utils.exception.TransactionNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.method.annotation.HandlerMethodValidationException;
 
 @ControllerAdvice
 public class CustomExceptionHandler {
@@ -41,6 +44,21 @@ public class CustomExceptionHandler {
 
     @ExceptionHandler(TransactionAlreadyCancelledException.class)
     public ResponseEntity<String> handleTransactionAlreadyCancelled(TransactionAlreadyCancelledException ex) {
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ex.getMessage());
+    }
+
+    @ExceptionHandler(TransactionNotFoundException.class)
+    public ResponseEntity<String> handleTransactionNotFound(TransactionNotFoundException ex) {
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ex.getMessage());
+    }
+
+    @ExceptionHandler(MethodArgumentNotValidException.class)
+    public ResponseEntity<String> handleMethodArgumentNotValid(MethodArgumentNotValidException ex) {
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ex.getMessage());
+    }
+
+    @ExceptionHandler(HandlerMethodValidationException.class)
+    public ResponseEntity<String> handleMethodValid(HandlerMethodValidationException ex) {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ex.getMessage());
     }
 }

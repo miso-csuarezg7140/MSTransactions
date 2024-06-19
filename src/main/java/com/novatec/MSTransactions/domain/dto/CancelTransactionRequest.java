@@ -12,7 +12,7 @@ import lombok.NoArgsConstructor;
 public class CancelTransactionRequest {
 
     @Pattern(regexp = "^\\d{16}$", message = "No cumple con la longitud requerida para el Id de la tarjeta.")
-    private Long cardId;
+    private String cardId;
 
     @Min(value = 1, message = "Id de la transacción es menor al requerido.")
     private Long transactionId;

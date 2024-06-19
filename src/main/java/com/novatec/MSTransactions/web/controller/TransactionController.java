@@ -6,7 +6,6 @@ import com.novatec.MSTransactions.domain.dto.PurchaseRequest;
 import com.novatec.MSTransactions.domain.service.TransactionService;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Min;
-import jakarta.validation.constraints.Pattern;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

@@ -38,14 +38,17 @@ public class TransactionService {
 
     public String purchase(PurchaseRequest purchaseRequest) throws JsonProcessingException {
 
+        Long cardNumber = Long.parseLong(purchaseRequest.getCardId());
         LocalDateTime today = LocalDateTime.now();
-        CardDetailResponse cardDetailResponse = cardService.getCardDetails(purchaseRequest.getCardId()).getBody();
+        String cardDetailResponseStr = cardService.getCardDetails(cardNumber).getBody();
+        CardDetailResponse cardDetailResponse = objectMapper.readValue(cardDetailResponseStr, CardDetailResponse.class);
 
         if (cardDetailResponse != null) {
             if (Objects.equals(CardState.ACTIVE.getCardState(), cardDetailResponse.getStatus())) {
                 if (cardDetailResponse.getDueDate().isAfter(today)) {
 
-                    BalanceResponse balanceResponse = cardService.getBalance(purchaseRequest.getCardId()).getBody();
+                    String balanceResponseStr = cardService.getBalance(cardNumber).getBody();
+                    BalanceResponse balanceResponse = objectMapper.readValue(balanceResponseStr, BalanceResponse.class);
 
                     assert balanceResponse != null;
                     if (balanceResponse.getBalance() >= purchaseRequest.getPrice()) {
@@ -54,7 +57,7 @@ public class TransactionService {
                         transactionDomain.setPrice(purchaseRequest.getPrice());
                         transactionDomain.setTransactionDate(today);
                         transactionDomain.setStatus(TransactionState.VALID.getStatus());
-                        transactionDomain.setCardId(purchaseRequest.getCardId());
+                        transactionDomain.setCardId(cardNumber);
                         transactionDomain = transactionRepository.save(transactionDomain);
 
                         UpdateBalanceRequest updateBalanceRequest = new UpdateBalanceRequest();
