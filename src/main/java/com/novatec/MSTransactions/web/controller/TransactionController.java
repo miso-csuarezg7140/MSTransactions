@@ -47,4 +47,9 @@ public class TransactionController {
         String response = transactionService.cancelTransaction(cancelTransactionRequest);
         return ResponseEntity.status(HttpStatus.OK).body(response);
     }
+
+    @GetMapping("/ping")
+    public String ping() {
+        return "pong";
+    }
 }
