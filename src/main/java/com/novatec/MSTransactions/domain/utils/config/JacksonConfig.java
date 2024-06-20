@@ -1,4 +1,4 @@
-package com.novatec.MSTransactions.domain.utils;
+package com.novatec.MSTransactions.domain.utils.config;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
